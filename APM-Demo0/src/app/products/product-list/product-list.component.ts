@@ -6,6 +6,7 @@ import { Product } from '../product';
 import { ProductService } from '../product.service';
 import { Store, select } from '@ngrx/store';
 import { IState } from '../state/product-state.model';
+import * as fromProduct from '../state/product.reducer';
 
 @Component({
   selector: 'pm-product-list',
@@ -37,11 +38,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
       error: (err: any) => this.errorMessage = err.error
     });
 
-    this.store.pipe(select('products')).subscribe(product => {
-      if (product) {
-        this.displayCode = product.showProductCode;
-      }
-    });
+    this.store.pipe(select(fromProduct.getShowProductCode))
+    .subscribe(showCode => this.displayCode = showCode );
   }
 
   ngOnDestroy(): void {
