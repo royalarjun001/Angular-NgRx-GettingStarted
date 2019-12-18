@@ -1,9 +1,14 @@
+import { IProductState } from './product-state.model';
 
-export function reducer(state, action){
+const initialState: IProductState = {
+  showProductCode: true,
+  currentProduct: null,
+  products: []
+};
+
+export function reducer(state = initialState, action): IProductState {
   switch (action.type) {
      case 'TOGGLE_PRODUCT_CODE':
-      console.log('existing state: ' + JSON.stringify(state));
-      console.log('payload ' + action.payload);
       return {
         ...state,
         showProductCode: action.payload
@@ -11,6 +16,5 @@ export function reducer(state, action){
 
     default:
       return state;
-
   }
 }
